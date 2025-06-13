@@ -25,6 +25,7 @@ if dim == 2:
     ])
     colors = 'red', 'blue', 'purple'
 elif dim == 1:
+    V = np.identity(dim + 1)
     colors = 'red', 'blue'
 else:
     V = np.identity(dim + 1)
