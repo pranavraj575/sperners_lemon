@@ -24,7 +24,7 @@ if dim == 2:
         [0, 2],
     ])
     colors = 'red', 'blue', 'purple'
-elif dim==1:
+elif dim == 1:
     colors = 'red', 'blue'
 else:
     V = np.identity(dim + 1)
@@ -130,12 +130,12 @@ if dim <= 2:  # geometic realization is plottable
     hi_dim_face_pts[INF_FACE_idx] = inf_pos
     if not args.invis_pts:
         plt.scatter([hi_dim_face_pts[k][0] for k in hi_dim_face_pts],
-                [hi_dim_face_pts[k][1] for k in hi_dim_face_pts],
-                c='black',
-                zorder=420,
-                marker='x',
-                # s=[40/(2**(lev)) for lev in levels],
-                )
+                    [hi_dim_face_pts[k][1] for k in hi_dim_face_pts],
+                    c='black',
+                    zorder=420,
+                    marker='x',
+                    # s=[40/(2**(lev)) for lev in levels],
+                    )
 
     for face, facep in collor_connections:
         p = hi_dim_face_pts[face]
@@ -147,20 +147,20 @@ if dim <= 2:  # geometic realization is plottable
                  zorder=419,
                  )
     for rface in rainbow_faces:
-        if dim==2:
+        if dim == 2:
             plt.fill([V[i][0] for i in rface],
                      [V[i][1] for i in rface],
                      color='purple',
                      alpha=.5,
                      zorder=-1,
                      )
-        if dim==1:
-            p,q=[V[i] for i in rface]
+        if dim == 1:
+            p, q = [V[i] for i in rface]
             plt.plot([p[0], q[0]], [p[1], q[1]],
                      color='purple',
                      linewidth=2,
                      alpha=1,
                      zorder=419,
-                    linestyle='dotted'
+                     linestyle='dotted'
                      )
     plt.show()
