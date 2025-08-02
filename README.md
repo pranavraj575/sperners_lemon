@@ -18,4 +18,4 @@ This lets us sample a large number of Sperner colorings and analyze these values
 
 ![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
 
-Code: `python .\sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -1 --seed 543`
+Code: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -1 --seed 543`
