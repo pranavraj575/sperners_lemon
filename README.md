@@ -10,7 +10,7 @@ This implies that the vertex at infinity has odd degree, and thus that there an 
 It is simple to show that an $n$-dimensional face is rainbow if and only if its vertex has odd degree, and thus there are an odd number of rainbow $n$-dimensional faces.
 
 ### Visualizations
-This package creates a subdivided simplex, chooses a Sperner coloring uniformly at random, then builds the associated graph.
+This code creates a subdivided simplex, chooses a Sperner coloring uniformly at random, then builds the associated graph.
 Since this is a very visual proof for $\Delta_1$ and $\Delta_2$, in these cases the coloring, graph, and rainbow faces are plotted in matplot.
 It is also relatively efficient to choose a Sperner coloring ($O(v)$ for $v$ the number of vertices), determine if each face is rainbow ($O(m)$ for $m$ the number of faces), and other similar statistics.
 This lets us sample a large number of Sperner colorings and analyze these values statistically
