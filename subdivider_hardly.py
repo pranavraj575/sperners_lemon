@@ -129,7 +129,7 @@ class SimplexSubdivision:
 
     def sample_coloring(self):
         self.colors = [
-            np.random.choice(list(ch))
+            np.random.choice(sorted(ch)) # sort so that random seed selection works
             for ch in self.color_choices
         ]
 

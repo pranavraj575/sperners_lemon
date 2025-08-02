@@ -13,7 +13,13 @@ PARSER.add_argument('--subdivisions', type=int, required=False, default=2,
                     help='barycentric subdivisions of simplex')
 PARSER.add_argument('--invis-pts', action='store_true', required=False,
                     help='dont show points of graph')
+PARSER.add_argument('--inf-point-pos', type=float, required=False, nargs=2, default=None,
+                    help='position of infinite point in 2d representation plot')
+PARSER.add_argument('--seed', type=int, required=False, default=None,
+                    help='random seed')
 args = PARSER.parse_args()
+if args.seed is not None:
+    np.random.seed(args.seed)
 
 dim = args.dim
 sub_divisions = args.subdivisions
@@ -61,10 +67,12 @@ print('finding edges took', graph_time - gen_time, 's')
 
 if dim <= 2:  # geometic realization is plottable
     print('plotting graph')
-    if dim == 2:
-        inf_pos = np.array([0., -1.69])
-    if dim == 1:
-        inf_pos = np.array([1.25, -.25])
+    inf_pos = np.array(args.inf_point_pos)
+    if inf_pos is None:
+        if dim == 2:
+            inf_pos = np.array([0., -1.69])
+        if dim == 1:
+            inf_pos = np.array([1.25, -.25])
     quite_simplex.plot_coloring(
         plotter=plt,
         lines_kwargs=dict(color='black', linewidth=1, alpha=.5),
@@ -91,4 +99,7 @@ if dim <= 2:  # geometic realization is plottable
                                                      alpha=1,
                                                      zorder=419,
                                                      linestyle='dotted'))
+    plt.xticks([])
+    plt.yticks([])
+    plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
