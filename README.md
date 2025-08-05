@@ -7,7 +7,7 @@ Edges connect two vertices if their faces share a $(n-1)$-dimensional subface th
   and connect vertices to infinity if their faces have a $(n-1)$-dimensional rainbow subface with colors $\\{1,2,...,n\\}$ on the $\\{1,2,...,n\\}$ face of $\Delta_n$.
 By derfintion of a Sperner coloring, the $\\{1,2,...,n\\}$ face of $\Delta_n$ is a valid Sperner coloring of $\Delta_{n-1}$, and by induction has an odd number of rainbow subfaces.
 This implies that the vertex at infinity has odd degree, and thus that there an odd number of other vertices with odd degree.
-It is simple to show that an $n$-dimensional face is rainbow if and only if its vertex has odd degree, and thus there are an odd number of rainbow $n$-dimensional faces.
+It is easily seen that an $n$-dimensional face is rainbow if and only if its vertex has odd degree, and thus there are an odd number of rainbow $n$-dimensional faces.
 
 ### Visualizations
 This code creates a subdivided simplex, chooses a Sperner coloring uniformly at random, then builds the associated graph.
