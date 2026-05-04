@@ -15,7 +15,7 @@ Since this is a very visual proof for $\Delta_1$ and $\Delta_2$, in these cases 
 It is also relatively efficient to choose a Sperner coloring ($O(v)$ for $v$ the number of vertices), determine if each face is rainbow ($O(m)$ for $m$ the number of faces), and other similar statistics.
 This lets us sample a large number of Sperner colorings and analyze these values statistically.
 
-
+[//]: <> (python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --dont_show --save .\img\sample_2_simplex.png --dpi 300)
 ![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
 
 Code: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543`
