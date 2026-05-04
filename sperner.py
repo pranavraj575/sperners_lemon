@@ -45,6 +45,13 @@ PARSER.add_argument(
 PARSER.add_argument(
     "--dpi", type=int, required=False, default=100, help="dpi of saved image"
 )
+PARSER.add_argument(
+    "--rotate",
+    type=float,
+    required=False,
+    default=0,
+    help="rotate plotted image (in degrees)",
+)
 
 args = PARSER.parse_args()
 if args.seed is not None:
@@ -111,6 +118,14 @@ if dim <= 2:  # geometic realization is plottable
             inf_pos = np.array([0.0, -1.69])
         if dim == 1:
             inf_pos = np.array([1.25, -0.25])
+    radians = np.radians(args.rotate)
+    rot = np.array(
+        [[np.cos(radians), np.sin(radians)], [-np.sin(radians), np.cos(radians)]]
+    )
+    vertices = np.array(quite_simplex.V @ rot)
+    inf_pos = inf_pos @ rot
+    quite_simplex.V = list(vertices)
+
     quite_simplex.plot_coloring(
         plotter=plt,
         lines_kwargs=dict(color="black", linewidth=1, alpha=0.5),
