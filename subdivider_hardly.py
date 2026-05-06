@@ -50,17 +50,10 @@ class SimplexSubdivision:
         self.track_adjacency = track_adjacency
         self.inf_face_idx = "inf"
         if self.track_adjacency:
-            subfaces = {
-                tuple(i for i in range(self.dim + 1) if i != p)
-                for p in range(self.dim + 1)
-            }
+            subfaces = list(itertools.combinations(range(self.dim + 1), self.dim))
             self.adjacency_tracker = {
-                self.faces_by_dim[-1][0]: {
-                    (self.inf_face_idx, subface) for subface in subfaces
-                },
-                self.inf_face_idx: {
-                    (self.faces_by_dim[-1][0], subface) for subface in subfaces
-                },
+                self.faces_by_dim[-1][0]: {(self.inf_face_idx, subface) for subface in subfaces},
+                self.inf_face_idx: {(self.faces_by_dim[-1][0], subface) for subface in subfaces},
             }
             print(self.adjacency_tracker)
         # there is one max dimensional face, connected to the outside
@@ -117,19 +110,13 @@ class SimplexSubdivision:
 
                         if self.track_adjacency and (len(generated) - 1 == self.dim):
                             # tracking adjacency of this dimension
-                            for gen_subface in itertools.combinations(
-                                generated, len(generated) - 1
-                            ):
+                            for gen_subface in itertools.combinations(generated, len(generated) - 1):
                                 # since this is a subdivision, each generated maximal dimensional face
                                 #   shares a specific face with at most ONE other generated face
                                 if gen_subface in unmatched_boundaries:
                                     generated_p = unmatched_boundaries.pop(gen_subface)
-                                    adjacency_tracker[generated].add(
-                                        (generated_p, gen_subface)
-                                    )
-                                    adjacency_tracker[generated_p].add(
-                                        (generated, gen_subface)
-                                    )
+                                    adjacency_tracker[generated].add((generated_p, gen_subface))
+                                    adjacency_tracker[generated_p].add((generated, gen_subface))
                                 else:
                                     unmatched_boundaries[gen_subface] = generated
                 idx += 1
@@ -140,12 +127,8 @@ class SimplexSubdivision:
         if self.track_adjacency:
             for boundary_subface in unmatched_boundaries:
                 outside_face = unmatched_boundaries[boundary_subface]
-                adjacency_tracker[outside_face].add(
-                    (self.inf_face_idx, boundary_subface)
-                )
-                adjacency_tracker[self.inf_face_idx].add(
-                    (outside_face, boundary_subface)
-                )
+                adjacency_tracker[outside_face].add((self.inf_face_idx, boundary_subface))
+                adjacency_tracker[self.inf_face_idx].add((outside_face, boundary_subface))
             self.adjacency_tracker = adjacency_tracker
         self.levels = levelsP
 
@@ -157,18 +140,11 @@ class SimplexSubdivision:
 
     @property
     def num_rainbow_faces(self):
-        return sum(
-            set(self.colors[i] for i in face) == set(self.all_colors)
-            for face in self.faces_by_dim[-1]
-        )
+        return sum(set(self.colors[i] for i in face) == set(self.all_colors) for face in self.faces_by_dim[-1])
 
     @property
     def rainbow_faces(self):
-        return [
-            face
-            for face in self.faces_by_dim[-1]
-            if set(self.colors[i] for i in face) == set(self.all_colors)
-        ]
+        return [face for face in self.faces_by_dim[-1] if set(self.colors[i] for i in face) == set(self.all_colors)]
 
     def make_silly_graph(self, crossing_colors=None):
         """
@@ -205,22 +181,14 @@ class SimplexSubdivision:
         else:
             # just check everything
             neigh = sum(
-                [
-                    [
-                        (face, subface)
-                        for subface in itertools.combinations(face, len(face) - 1)
-                    ]
-                    for face in self.faces_by_dim[-1]
-                ],
+                [[(face, subface) for subface in itertools.combinations(face, len(face) - 1)] for face in self.faces_by_dim[-1]],
                 [],
             )
             # sum(list of lists,[]) concatenates lists
         # special faces that border the special face of triangle
         for outside_face, shared_vertices in neigh:
             # check that each vertex on the outside is on the 'crossing colors' face
-            if all(
-                self.color_choices[i].issubset(crossing_colors) for i in shared_vertices
-            ):
+            if all(self.color_choices[i].issubset(crossing_colors) for i in shared_vertices):
                 if crossing_colors == {self.colors[i] for i in shared_vertices}:
                     # they are friends :)
                     collor_connections.append((outside_face, self.inf_face_idx))
@@ -285,10 +253,7 @@ class SimplexSubdivision:
             if self.dim == 2:
                 inf_vertex_pos = np.array([0.0, -1.69])
 
-        hi_dim_face_pts = {
-            face: sum([self.V[i] for i in face]) / len(face)
-            for face in self.faces_by_dim[-1]
-        }
+        hi_dim_face_pts = {face: sum([self.V[i] for i in face]) / len(face) for face in self.faces_by_dim[-1]}
         hi_dim_face_pts[self.inf_face_idx] = inf_vertex_pos
         if show_pts:
             plt.scatter(
@@ -312,9 +277,7 @@ class SimplexSubdivision:
             alpha=0.5,
             zorder=-1,
         ),
-        dim1kwargs=dict(
-            color="purple", linewidth=2, alpha=1, zorder=419, linestyle="dotted"
-        ),
+        dim1kwargs=dict(color="purple", linewidth=2, alpha=1, zorder=419, linestyle="dotted"),
     ):
         assert self.dim <= 2
         for rface in self.rainbow_faces:
@@ -338,9 +301,7 @@ if __name__ == "__main__":
 
     for track_adjacency in True, False:
         timothy = time.time()
-        stuff = SimplexSubdivision(
-            dim=3, subdivisions=2, track_adjacency=track_adjacency, track_colors=True
-        )
+        stuff = SimplexSubdivision(dim=3, subdivisions=2, track_adjacency=track_adjacency, track_colors=True)
         mid_timothy = time.time()
         print("adj", track_adjacency)
         print("generation  time:", mid_timothy - timothy)
@@ -349,9 +310,7 @@ if __name__ == "__main__":
         print("total       time:", time.time() - timothy)
         print()
 
-    stuff = SimplexSubdivision(
-        dim=2, subdivisions=3, track_adjacency=True, track_colors=True
-    )
+    stuff = SimplexSubdivision(dim=2, subdivisions=3, track_adjacency=True, track_colors=True)
     for face, _ in stuff.adjacency_tracker[stuff.inf_face_idx]:
         plt.fill(
             [stuff.V[i][0] for i in face],

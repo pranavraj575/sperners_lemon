@@ -5,9 +5,7 @@ from subdivider_hardly import SimplexSubdivision
 import time
 
 PARSER = argparse.ArgumentParser()
-PARSER.add_argument(
-    "--dim", type=int, required=False, default=2, help="dimension of simplex"
-)
+PARSER.add_argument("--dim", type=int, required=False, default=2, help="dimension of simplex")
 PARSER.add_argument(
     "--subdivisions",
     type=int,
@@ -16,9 +14,7 @@ PARSER.add_argument(
     help="barycentric subdivisions of simplex",
 )
 
-PARSER.add_argument(
-    "--n", type=int, required=False, default=30, help="times to rechoose colors"
-)
+PARSER.add_argument("--n", type=int, required=False, default=30, help="times to rechoose colors")
 args = PARSER.parse_args()
 
 dim = args.dim

@@ -5,9 +5,7 @@ from subdivider_hardly import SimplexSubdivision
 import time
 
 PARSER = argparse.ArgumentParser()
-PARSER.add_argument(
-    "--dim", type=int, required=False, default=2, help="dimension of simplex"
-)
+PARSER.add_argument("--dim", type=int, required=False, default=2, help="dimension of simplex")
 PARSER.add_argument(
     "--subdivisions",
     type=int,
@@ -15,9 +13,7 @@ PARSER.add_argument(
     default=2,
     help="barycentric subdivisions of simplex",
 )
-PARSER.add_argument(
-    "--invis-pts", action="store_true", required=False, help="dont show points of graph"
-)
+PARSER.add_argument("--invis-pts", action="store_true", required=False, help="dont show points of graph")
 PARSER.add_argument(
     "--inf-point-pos",
     type=float,
@@ -26,9 +22,7 @@ PARSER.add_argument(
     default=None,
     help="position of infinite point in 2d representation plot",
 )
-PARSER.add_argument(
-    "--seed", type=int, required=False, default=None, help="random seed"
-)
+PARSER.add_argument("--seed", type=int, required=False, default=None, help="random seed")
 PARSER.add_argument(
     "--dont_show",
     action="store_true",
@@ -42,9 +36,7 @@ PARSER.add_argument(
     default=None,
     help="file to save image (if relevant)",
 )
-PARSER.add_argument(
-    "--dpi", type=int, required=False, default=100, help="dpi of saved image"
-)
+PARSER.add_argument("--dpi", type=int, required=False, default=100, help="dpi of saved image")
 PARSER.add_argument(
     "--rotate",
     type=float,
@@ -80,9 +72,7 @@ print(
     "RAINBOW FACES PROPORTION:",
     rainbow_faces_straight_count / len(quite_simplex.faces_by_dim[-1]),
 )
-print(
-    "RAINBOW FACES EXPECTED PROPORTION:", np.prod(np.arange(dim) + 1) / (dim + 1) ** dim
-)
+print("RAINBOW FACES EXPECTED PROPORTION:", np.prod(np.arange(dim) + 1) / (dim + 1) ** dim)
 
 # make graph
 crossing_colors = set(quite_simplex.colors[:dim])
@@ -90,9 +80,7 @@ graph_time = time.time()
 # find edges in the graph connecting max dimensional faces based on if their edges are correct
 collor_connections = quite_simplex.make_silly_graph(crossing_colors=crossing_colors)
 
-incidence = np.zeros(
-    (len(quite_simplex.faces_by_dim[-1]) + 1, len(quite_simplex.faces_by_dim[-1]) + 1)
-)
+incidence = np.zeros((len(quite_simplex.faces_by_dim[-1]) + 1, len(quite_simplex.faces_by_dim[-1]) + 1))
 face_to_idx = {face: i for i, face in enumerate(quite_simplex.faces_by_dim[-1])}
 face_to_idx[quite_simplex.inf_face_idx] = len(quite_simplex.faces_by_dim[-1])
 for face, facep in collor_connections:
@@ -119,9 +107,7 @@ if dim <= 2:  # geometic realization is plottable
         if dim == 1:
             inf_pos = np.array([1.25, -0.25])
     radians = np.radians(args.rotate)
-    rot = np.array(
-        [[np.cos(radians), np.sin(radians)], [-np.sin(radians), np.cos(radians)]]
-    )
+    rot = np.array([[np.cos(radians), np.sin(radians)], [-np.sin(radians), np.cos(radians)]])
     vertices = np.array(quite_simplex.V @ rot)
     inf_pos = inf_pos @ rot
     quite_simplex.V = list(vertices)
@@ -155,9 +141,7 @@ if dim <= 2:  # geometic realization is plottable
             alpha=0.5,
             zorder=-1,
         ),
-        dim1kwargs=dict(
-            color="purple", linewidth=2, alpha=1, zorder=419, linestyle="dotted"
-        ),
+        dim1kwargs=dict(color="purple", linewidth=2, alpha=1, zorder=419, linestyle="dotted"),
     )
     plt.xticks([])
     plt.yticks([])
