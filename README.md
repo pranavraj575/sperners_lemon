@@ -1,6 +1,9 @@
 # [Sperner's Lemma](https://en.wikipedia.org/wiki/Sperner%27s_lemma)
 **Statement:** In a Sperner coloring of a subdivided simplex ($\Delta_n$), there is an odd number of $n$-dimensional faces that are 'rainbow' (every vertex has a unique color).
 
+[//]: <> (python sperner.py --dim 2 --sub SUB --invis-pts --inf-p -1 -2 --dont_show --dpi 300 --rotate -90 --save img\\sample_2_simplex_SUB_SEED.png --seed SEED)
+![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sperners_lemon.gif)
+
 ### Proof Sketch
 One way to prove this involves building a graph whose vertices consist of a vertex for each maximal dimensional face of the subdivided $\Delta_n$, and one specical vertex at 'infinity'.
 Edges connect two vertices if their faces share a $(n-1)$-dimensional subface that is rainbow with colors $\\{1,2,...,n\\}$,
@@ -18,4 +21,4 @@ This lets us sample a large number of Sperner colorings and analyze these values
 [//]: <> (python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --dont_show --save .\img\sample_2_simplex.png --dpi 300 --rotate -90)
 ![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
 
-Code: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543`
+Example: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543`
