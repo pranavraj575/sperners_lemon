@@ -2,6 +2,7 @@ import numpy as np
 import itertools
 from collections import defaultdict
 import matplotlib.pyplot as plt
+from typing import Dict
 
 
 class SimplexSubdivision:
@@ -32,7 +33,7 @@ class SimplexSubdivision:
         else:
             V = np.identity(self.dim + 1)
             all_colors = list(range(self.dim + 1))
-        self.V = list(V)
+        self.V = V
         # level of each vertex, (# of subdivisions before it appears)
         self.lev = 0
         self.levels = [self.lev for _ in self.V]
@@ -55,7 +56,6 @@ class SimplexSubdivision:
                 self.faces_by_dim[-1][0]: {(self.inf_face_idx, subface) for subface in subfaces},
                 self.inf_face_idx: {(self.faces_by_dim[-1][0], subface) for subface in subfaces},
             }
-            print(self.adjacency_tracker)
         # there is one max dimensional face, connected to the outside
 
         for _ in range(subdivisions):
@@ -72,7 +72,7 @@ class SimplexSubdivision:
         faces_by_dim_set = [set() for _ in self.faces_by_dim]
         # all new subfaces that a specific face generates
         # includes the empty face so that we do not have to explicitly case a bunch of times
-        face_to_generated_subfaces = {(): {()}}
+        face_to_generated_subfaces: Dict[tuple, set] = {(): {()}}
         idx = 0
         levelsP = []
         # for adjacency, this is a dict of (non neighbored subface -> face)
@@ -84,7 +84,7 @@ class SimplexSubdivision:
                 face_to_generated_subfaces[face] = set()
                 # to generate this, we consider all generated subfaces of any k-1 dim face of face (dim k)
                 #  add these subfaces, along with the cone on the vertex we just added for k
-                Vp.append(sum([self.V[i] for i in face]) / len(face))
+                Vp.append(self.V[face,].sum(axis=0) / len(face))
                 # ad vertex idx to the simplex, average of all vertices on a face
                 if len(face) == 1:
                     # if face is a vertex, the level stays the same
@@ -120,7 +120,7 @@ class SimplexSubdivision:
                                 else:
                                     unmatched_boundaries[gen_subface] = generated
                 idx += 1
-        self.V = Vp
+        self.V = np.array(Vp)
         self.faces_by_dim = faces_by_dimP
         if self.track_colors:
             self.color_choices = color_choicesP
@@ -253,7 +253,7 @@ class SimplexSubdivision:
             if self.dim == 2:
                 inf_vertex_pos = np.array([0.0, -1.69])
 
-        hi_dim_face_pts = {face: sum([self.V[i] for i in face]) / len(face) for face in self.faces_by_dim[-1]}
+        hi_dim_face_pts = {face: self.V[face,].sum(axis=0) / len(face) for face in self.faces_by_dim[-1]}
         hi_dim_face_pts[self.inf_face_idx] = inf_vertex_pos
         if show_pts:
             plt.scatter(

@@ -110,7 +110,7 @@ if dim <= 2:  # geometic realization is plottable
     rot = np.array([[np.cos(radians), np.sin(radians)], [-np.sin(radians), np.cos(radians)]])
     vertices = np.array(quite_simplex.V @ rot)
     inf_pos = inf_pos @ rot
-    quite_simplex.V = list(vertices)
+    quite_simplex.V = vertices
 
     quite_simplex.plot_coloring(
         plotter=plt,
