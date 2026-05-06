@@ -50,10 +50,19 @@ class SimplexSubdivision:
         self.track_adjacency = track_adjacency
         self.inf_face_idx = "inf"
         if self.track_adjacency:
-            self.adjacency_tracker = {
-                self.faces_by_dim[-1][0]: {self.inf_face_idx},
-                self.inf_face_idx: {self.faces_by_dim[-1][0]},
+            subfaces = {
+                tuple(i for i in range(self.dim + 1) if i != p)
+                for p in range(self.dim + 1)
             }
+            self.adjacency_tracker = {
+                self.faces_by_dim[-1][0]: {
+                    (self.inf_face_idx, subface) for subface in subfaces
+                },
+                self.inf_face_idx: {
+                    (self.faces_by_dim[-1][0], subface) for subface in subfaces
+                },
+            }
+            print(self.adjacency_tracker)
         # there is one max dimensional face, connected to the outside
 
         for _ in range(subdivisions):
