@@ -143,6 +143,28 @@ class SimplexSubdivision:
         return sum(set(self.colors[i] for i in face) == set(self.all_colors) for face in self.faces_by_dim[-1])
 
     @property
+    def expected_num_rainbow_faces(self):
+        """
+        using linearity of expectations, can find expected number of rainbow faces
+        :return:
+        """
+        prob_dict = dict()
+        s = 0
+        for face in self.faces_by_dim[-1]:
+            vertex_choice_type = tuple(sorted(tuple(sorted(self.color_choices[i])) for i in face))
+            if vertex_choice_type not in prob_dict:
+                rb = 0
+                ct = 0
+                for selection in itertools.product(*(self.color_choices[i] for i in face)):
+                    if set(selection) == set(self.all_colors):
+                        rb += 1
+                    ct += 1
+                prob_dict[vertex_choice_type] = rb / ct
+            s += prob_dict[vertex_choice_type]
+
+        return s
+
+    @property
     def rainbow_faces(self):
         return [face for face in self.faces_by_dim[-1] if set(self.colors[i] for i in face) == set(self.all_colors)]
 

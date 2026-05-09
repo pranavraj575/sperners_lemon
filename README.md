@@ -52,6 +52,6 @@ The [`stat_guy.py`](stat_guy.py) script creates the specified barycentric subdiv
 
 Example: `python stat_guy.py --dim 4 --subdivisions 3 --n 69`
 
-[//]: <> (python stat_guy.py --dim 4 --subdivisions 3 --n 100 --dont_show --save img/sample_histogram.png)
+[//]: <> (python stat_guy.py --dim 4 --subdivisions 3 --n 1000 --dont_show --save img/sample_histogram.png)
 
 ![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_histogram.png)

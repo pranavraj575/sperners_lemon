@@ -44,6 +44,8 @@ gen_time = time.time()
 
 for d, faces in enumerate(quite_simplex.faces_by_dim):
     print("# of", str(d) + "-dimensional faces:", len(faces))
+expected_mean = quite_simplex.expected_num_rainbow_faces
+print(f"expected # of rainbow faces: {expected_mean}")
 rainbow_face_count = []
 for i in range(args.n):
     rainbow_face_count.append(quite_simplex.num_rainbow_faces)
@@ -54,6 +56,8 @@ rainbow_face_proportions = rainbow_face_count / n_faces
 
 print("mean number of rainbow faces:", np.mean(rainbow_face_count))
 print("stdev number of rainbow faces:", np.std(rainbow_face_count))
+sem = (np.std(rainbow_face_count) * np.sqrt(args.n / (args.n - 1))) / np.sqrt(args.n)
+print("std error of mean:", sem)
 print("mean prop of rainbow faces:", np.mean(rainbow_face_proportions))
 print("stdev prop of rainbow faces:", np.std(rainbow_face_proportions))
 
@@ -66,7 +70,21 @@ print("limiting mean", limiting_p)
 print("limiting stdev", limiting_stdev)
 
 plt.hist(rainbow_face_count)
-plt.title(f"# of rainbow faces  distribution in $\\Delta_{args.dim}$ with {sub_divisions} barycentric subdivisions")
+plt.title(f"distribution of # of rainbow faces in $\\Delta_{args.dim}$ with {sub_divisions} barycentric subdivisions")
+ylim = plt.ylim()
+(pop_mean,) = plt.plot([np.mean(rainbow_face_count)] * 2, ylim, linestyle="--", label="population mean $\\bar{\\mu}$")
+plt.fill_betweenx(
+    ylim,
+    [np.mean(rainbow_face_count) - sem] * 2,
+    [np.mean(rainbow_face_count) + sem] * 2,
+    color=pop_mean._color,
+    alpha=0.5,
+    label="$\\bar{\\mu}\\pm$ Standard Error",
+)
+plt.plot([expected_mean] * 2, ylim, linestyle="--", label="expected mean")
+
+plt.ylim(ylim)
+plt.legend()
 # max_cnt = np.max(rainbow_face_count)
 # plt.bar(np.arange(max_cnt) + 1, [np.sum(rainbow_face_count == i) for i in range(1, 1 + max_cnt)])
 if args.save:
