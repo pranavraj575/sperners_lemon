@@ -15,10 +15,26 @@ It is easily seen that an $n$-dimensional face is rainbow if and only if its ver
 ### Visualizations
 This code creates a subdivided simplex, chooses a Sperner coloring uniformly at random, then builds the associated graph.
 Since this is a very visual proof for $\Delta_1$ and $\Delta_2$, in these cases the coloring, graph, and rainbow faces are plotted in matplot.
-It is also relatively efficient to choose a Sperner coloring ($O(v)$ for $v$ the number of vertices), determine if each face is rainbow ($O(m)$ for $m$ the number of faces), and other similar statistics.
-This lets us sample a large number of Sperner colorings and analyze these values statistically.
+
+[//]: <> (python sperner.py --dim 1 --sub 4 --invis-pts --inf-p 1.1, -.1 --seed 69 --dont_show --save .\img\sample_1_simplex.png --dpi 300 --rot 45)
+![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
+
+$\Delta_1$ example: `python sperner.py --dim 1 --sub 4 --invis-pts --inf-p 1.1, -.1 --seed 69 --rot 45`
 
 [//]: <> (python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --dont_show --save .\img\sample_2_simplex.png --dpi 300 --rotate -90)
 ![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
 
-Example: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543`
+$\Delta_2$ example: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --rotate -90`
+
+
+### Statistics
+It is also relatively efficient (in the number of vertices) to choose a Sperner coloring ($O(v)$ for $v$ the number of vertices), determine if each face is rainbow ($O(m)$ for $m$ the number of faces), and other similar statistics.
+This lets us sample a large number of Sperner colorings and analyze these values statistically.
+
+The [`stat_guy.py`](stat_guy.py) script creates the specified barycentric subdivision of $\Delta_n$, colors each vertex uniformly at random from the available colors, then records the number of rainbow faces.
+
+Example: `python .\stat_guy.py --dim 4 --subdivisions 3 --n 69`
+
+[//]: <> (python .\stat_guy.py --dim 4 --subdivisions 3 --n 100 --dont_show --save img/sample_histogram.png)
+
+![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_histogram.png)
