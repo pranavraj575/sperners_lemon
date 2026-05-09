@@ -12,7 +12,25 @@ By derfintion of a Sperner coloring, the $\\{1,2,...,n\\}$ face of $\Delta_n$ is
 This implies that the vertex at infinity has odd degree, and thus that there an odd number of other vertices with odd degree.
 It is easily seen that an $n$-dimensional face is rainbow if and only if its vertex has odd degree, and thus there are an odd number of rainbow $n$-dimensional faces.
 
-### Visualizations
+
+## Installation (assuming [Python](https://www.python.org/downloads/release/python-3810/) is installed)
+* **Option 1**: [Download zip](https://github.com/pranavraj575/sperners_lemon/archive/refs/heads/main.zip), then extract all
+  
+  run the following in terminal/command prompt to install dependencies:
+
+  (replace `<name of folder>` with path of folder you extracted it to)
+  ```shell
+  cd <name of folder>
+  pip3 install -r requirements.txt
+  ```
+* **Option 2**: Clone Repository, then install the python package (assumes [Git is installed](https://github.com/git-guides/install-git))
+  ```shell
+  git clone https://github.com/pranavraj575/sperners_lemon
+  cd sperners_lemon
+  pip3 install -r requirements.txt
+  ```
+
+## Visualizations
 This code creates a subdivided simplex, chooses a Sperner coloring uniformly at random, then builds the associated graph.
 Since this is a very visual proof for $\Delta_1$ and $\Delta_2$, in these cases the coloring, graph, and rainbow faces are plotted in matplot.
 
@@ -27,7 +45,7 @@ $\Delta_1$ example: `python sperner.py --dim 1 --sub 4 --invis-pts --inf-p 1.1, 
 $\Delta_2$ example: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --rotate -90`
 
 
-### Statistics
+## Statistics
 It is also relatively efficient (in the number of vertices) to choose a Sperner coloring ($O(v)$ for $v$ the number of vertices), determine if each face is rainbow ($O(m)$ for $m$ the number of faces), and other similar statistics.
 This lets us sample a large number of Sperner colorings and analyze these values statistically.
 
