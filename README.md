@@ -34,16 +34,15 @@ It is easily seen that an $n$-dimensional face is rainbow if and only if its ver
 This code creates a subdivided simplex, chooses a Sperner coloring uniformly at random, then builds the associated graph.
 Since this is a very visual proof for $\Delta_1$ and $\Delta_2$, in these cases the coloring, graph, and rainbow faces are plotted in matplot.
 
-[//]: <> (python sperner.py --dim 1 --sub 4 --invis-pts --inf-p 1.1, -.1 --seed 69 --dont_show --save .\img\sample_1_simplex.png --dpi 300 --rot 45)
-![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
-
 $\Delta_1$ example: `python sperner.py --dim 1 --sub 4 --invis-pts --inf-p 1.1, -.1 --seed 69 --rot 45`
 
-[//]: <> (python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --dont_show --save .\img\sample_2_simplex.png --dpi 300 --rotate -90)
-![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
+[//]: <> (python sperner.py --dim 1 --sub 4 --invis-pts --inf-p 1.1, -.1 --seed 69 --dont_show --save .\img\sample_1_simplex.png --dpi 300 --rot 45)
+![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_1_simplex.png)
 
 $\Delta_2$ example: `python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --rotate -90`
 
+[//]: <> (python sperner.py --dim 2 --sub 3 --invis-pts --inf-p -1 -2 --seed 543 --dont_show --save .\img\sample_2_simplex.png --dpi 300 --rotate -90)
+![](https://github.com/pranavraj575/sperners_lemon/blob/main/img/sample_2_simplex.png)
 
 ## Statistics
 It is also relatively efficient (in the number of vertices) to choose a Sperner coloring ($O(v)$ for $v$ the number of vertices), determine if each face is rainbow ($O(m)$ for $m$ the number of faces), and other similar statistics.
