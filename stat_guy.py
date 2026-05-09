@@ -66,7 +66,7 @@ print("limiting mean", limiting_p)
 print("limiting stdev", limiting_stdev)
 
 plt.hist(rainbow_face_count)
-plt.title(f"# of rainbow faces in a {args.dim}-simplex with {sub_divisions} barycentric subdivisions")
+plt.title(f"# of rainbow faces  distribution in $\\Delta_{args.dim}$ with {sub_divisions} barycentric subdivisions")
 # max_cnt = np.max(rainbow_face_count)
 # plt.bar(np.arange(max_cnt) + 1, [np.sum(rainbow_face_count == i) for i in range(1, 1 + max_cnt)])
 if args.save:
