@@ -33,7 +33,7 @@ This lets us sample a large number of Sperner colorings and analyze these values
 
 The [`stat_guy.py`](stat_guy.py) script creates the specified barycentric subdivision of $\Delta_n$, colors each vertex uniformly at random from the available colors, then records the number of rainbow faces.
 
-Example: `python .\stat_guy.py --dim 4 --subdivisions 3 --n 69`
+Example: `python stat_guy.py --dim 4 --subdivisions 3 --n 69`
 
 [//]: <> (python .\stat_guy.py --dim 4 --subdivisions 3 --n 100 --dont_show --save img/sample_histogram.png)
 
