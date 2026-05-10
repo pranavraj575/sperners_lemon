@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
-from subdivider_hardly import SimplexSubdivision
 import time
+
+from subdivider_hardly import SimplexSubdivision
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("--dim", type=int, required=False, default=2, help="dimension of simplex")
@@ -64,15 +65,9 @@ for d, faces in enumerate(quite_simplex.faces_by_dim):
     print("# of", str(d) + "-dimensional faces:", len(faces))
 
 rainbow_faces_straight_count = quite_simplex.num_rainbow_faces
-print(
-    "RAINBOW FACES COUNT:",
-    rainbow_faces_straight_count,
-)
-print(
-    "RAINBOW FACES PROPORTION:",
-    rainbow_faces_straight_count / len(quite_simplex.faces_by_dim[-1]),
-)
-print("RAINBOW FACES EXPECTED PROPORTION:", np.prod(np.arange(dim) + 1) / (dim + 1) ** dim)
+print(f"RAINBOW FACES COUNT: {rainbow_faces_straight_count}")
+print(f"RAINBOW FACES PROPORTION: {rainbow_faces_straight_count / len(quite_simplex.faces_by_dim[-1])}")
+print("RAINBOW FACES EXPECTED PROPORTION:", quite_simplex.expected_num_rainbow_faces / len(quite_simplex.faces_by_dim[-1]))
 
 # make graph
 crossing_colors = set(quite_simplex.colors[:dim])
@@ -90,9 +85,9 @@ incidence_time = time.time()
 
 parity = (np.sum(incidence, axis=0) % 2)[:-1]  # ignore the infinity vertex
 rainbow_faces = [quite_simplex.faces_by_dim[-1][idx] for idx in np.where(parity)[0]]
-print("RAINBOW FACES:")
-for face in rainbow_faces:
-    print(" ", face)
+# print("RAINBOW FACES:")
+# for face in rainbow_faces:
+#    print(" ", face)
 print("NUMBER OF RAINBOW FACES:", len(rainbow_faces))
 
 print("subdivisions took", gen_time - timothy, "s")

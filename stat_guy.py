@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
-from subdivider_hardly import SimplexSubdivision
 import time
+
+from subdivider_hardly import SimplexSubdivision
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("--dim", type=int, required=False, default=2, help="dimension of simplex")
@@ -78,9 +79,7 @@ print("limiting stdev", limiting_stdev)
 plt.hist(rainbow_face_count)
 plt.title(f"distribution of # of rainbow faces in $\\Delta_{args.dim}$ with {sub_divisions} barycentric subdivisions")
 ylim = plt.ylim()
-(pop_mean,) = plt.plot(
-    [np.mean(rainbow_face_count)] * 2, [ylim[0] - np.pi, ylim[1]], linestyle="--", label="population mean $\\bar{\\mu}$"
-)
+(pop_mean,) = plt.plot([np.mean(rainbow_face_count)] * 2, [ylim[0] - np.pi, ylim[1]], linestyle="--", label="population mean $\\bar{\\mu}$")
 plt.fill_betweenx(
     ylim,
     [np.mean(rainbow_face_count) - sem] * 2,
