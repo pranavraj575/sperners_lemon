@@ -13,13 +13,13 @@ PARSER.add_argument(
     default=2,
     help="barycentric subdivisions of simplex",
 )
+PARSER.add_argument("--n", type=int, required=False, default=30, help="times to rechoose colors")
 PARSER.add_argument(
     "--dont_show",
     action="store_true",
     required=False,
     help="dont show histogram",
 )
-
 PARSER.add_argument(
     "--save",
     type=str,
@@ -27,7 +27,13 @@ PARSER.add_argument(
     default=None,
     help="file to save histogram",
 )
-PARSER.add_argument("--n", type=int, required=False, default=30, help="times to rechoose colors")
+PARSER.add_argument(
+    "--dpi",
+    type=int,
+    required=False,
+    default=100,
+    help="dpi of plot",
+)
 args = PARSER.parse_args()
 
 dim = args.dim
@@ -72,7 +78,9 @@ print("limiting stdev", limiting_stdev)
 plt.hist(rainbow_face_count)
 plt.title(f"distribution of # of rainbow faces in $\\Delta_{args.dim}$ with {sub_divisions} barycentric subdivisions")
 ylim = plt.ylim()
-(pop_mean,) = plt.plot([np.mean(rainbow_face_count)] * 2, ylim, linestyle="--", label="population mean $\\bar{\\mu}$")
+(pop_mean,) = plt.plot(
+    [np.mean(rainbow_face_count)] * 2, [ylim[0] - np.pi, ylim[1]], linestyle="--", label="population mean $\\bar{\\mu}$"
+)
 plt.fill_betweenx(
     ylim,
     [np.mean(rainbow_face_count) - sem] * 2,
@@ -88,6 +96,6 @@ plt.legend()
 # max_cnt = np.max(rainbow_face_count)
 # plt.bar(np.arange(max_cnt) + 1, [np.sum(rainbow_face_count == i) for i in range(1, 1 + max_cnt)])
 if args.save:
-    plt.savefig(args.save)
+    plt.savefig(args.save, dpi=args.dpi)
 if not args.dont_show:
     plt.show()
